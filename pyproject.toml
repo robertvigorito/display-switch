@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "display-switch"
+version = "0.1.0"
+description = "Enable or disable Windows monitors individually or in named groups"
+requires-python = ">=3.10"
+dependencies = [
+    "PySide6>=6.6",
+    "typer>=0.12",
+]
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+display-switch = "display_switch.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = ["-ra", "--cov=display_switch", "--cov-report=term-missing", "--cov-report=html"]
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+
+[tool.pylint.main]
+py-version = "3.10"
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+
+[dependency-groups]
+dev = [
+    "pylint>=3.2",
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "pytest-sugar>=1.0",
+]
